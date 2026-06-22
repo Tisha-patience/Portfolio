@@ -1,0 +1,79 @@
+/* ── Form inputs ── */
+.form-input {
+  display: block;
+  width: 100%;
+  background: #111111;
+  border: 1px solid #2A2A2A;
+  color: #F0EDE8;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: #555250;
+}
+
+.form-input:focus {
+  border-color: #FF5C00;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Project card hover ── */
+.project-card {
+  position: relative;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: #FF5C00;
+  transition: height 0.3s ease;
+}
+
+.project-card:hover::before {
+  height: 100%;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #2A2A2A;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5C00;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(255, 92, 0, 0.3);
+  color: #F0EDE8;
+}

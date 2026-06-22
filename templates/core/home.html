@@ -1,0 +1,389 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tisha Patience Malongo — Software Engineer</title>
+  <meta name="description" content="Junior software engineer building with Python, Django, and the web." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand': '#FF5C00',
+            'brand-dim': '#CC4900',
+            'ink': '#0A0A0A',
+            'ink-soft': '#111111',
+            'ink-muted': '#1C1C1C',
+            'surface': '#141414',
+            'surface-2': '#1E1E1E',
+            'border': '#2A2A2A',
+            'text-primary': '#F0EDE8',
+            'text-secondary': '#999490',
+            'text-muted': '#555250',
+          },
+          fontFamily: {
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'Consolas', 'monospace'],
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'blink': 'blink 1s step-end infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(24px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            blink: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body class="bg-ink text-text-primary font-sans antialiased">
+
+  <!-- ── NAV ────────────────────────────────────────────── -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-border bg-ink/90 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <a href="#" class="font-mono text-brand font-bold text-lg tracking-tight">&lt;Tisha /&gt;</a>
+      <div class="hidden md:flex items-center gap-8 font-mono text-sm text-text-secondary">
+        <a href="#about" class="hover:text-brand transition-colors duration-200">about</a>
+        <a href="#skills" class="hover:text-brand transition-colors duration-200">skills</a>
+        <a href="#projects" class="hover:text-brand transition-colors duration-200">projects</a>
+        <a href="#contact" class="hover:text-brand transition-colors duration-200">contact</a>
+      </div>
+      <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener"
+         class="font-mono text-xs border border-brand text-brand px-4 py-1.5 hover:bg-brand hover:text-ink transition-all duration-200">
+        GitHub ↗
+      </a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── HERO ───────────────────────────────────────────── -->
+    <section id="about" class="min-h-screen flex flex-col justify-center pt-14 px-6">
+      <div class="max-w-6xl mx-auto w-full">
+
+        <!-- Tag line -->
+        <div class="font-mono text-brand text-sm mb-6 opacity-0 animate-fade-up" style="animation-delay:0.1s; animation-fill-mode:forwards;">
+          <span class="border border-brand/40 px-3 py-1">// junior software engineer</span>
+        </div>
+
+        <!-- Side by side: name + photo -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-8 opacity-0 animate-fade-up" style="animation-delay:0.25s; animation-fill-mode:forwards;">
+
+          <!-- Left: name -->
+          <h1 class="font-mono font-bold leading-none">
+            <span class="block text-[clamp(2rem,6vw,5.5rem)] text-text-primary">Tisha Patience</span>
+            <span class="block text-[clamp(2rem,6vw,5.5rem)] text-brand">Malongo.</span>
+          </h1>
+
+          <!-- Right: photo -->
+          <div class="flex-shrink-0">
+            <div class="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-2 border-brand">
+              <img src="{% static 'images/profile.jpg' %}" alt="Tisha Patience Malongo"
+                   class="w-full h-full object-cover object-top" />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Typed intro line -->
+        <div class="font-mono text-text-secondary text-lg mb-10 opacity-0 animate-fade-up" style="animation-delay:0.45s; animation-fill-mode:forwards;">
+          <span id="typed-text"></span><span class="animate-blink text-brand">|</span>
+        </div>
+
+        <!-- Bio paragraph -->
+        <p class="max-w-xl text-text-secondary leading-relaxed mb-12 opacity-0 animate-fade-up text-base" style="animation-delay:0.6s; animation-fill-mode:forwards;">
+          I'm a self-taught developer based in Kampala, building things with Python and Django.
+          I love clean code, good design, and figuring out how things work under the hood.
+          Currently open to junior roles, internships, and freelance projects.
+        </p>
+
+        <!-- CTA row -->
+        <div class="flex flex-wrap gap-4 opacity-0 animate-fade-up" style="animation-delay:0.75s; animation-fill-mode:forwards;">
+          <a href="#projects"
+             class="font-mono text-sm bg-brand text-ink px-6 py-3 font-bold hover:bg-brand-dim transition-colors duration-200">
+            See my work ↓
+          </a>
+          <a href="#contact"
+             class="font-mono text-sm border border-border text-text-secondary px-6 py-3 hover:border-brand hover:text-brand transition-all duration-200">
+            Get in touch
+          </a>
+          <a href="{% static 'cv.pdf' %}" download
+             class="font-mono text-sm border border-border text-text-secondary px-6 py-3 hover:border-brand hover:text-brand transition-all duration-200">
+            Download CV
+          </a>
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 font-mono text-text-muted text-xs flex flex-col items-center gap-2 hidden md:flex">
+          <div class="w-px h-12 bg-gradient-to-b from-border to-transparent"></div>
+          <span>scroll</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ──────────────────────────────────────────── -->
+    <section id="skills" class="py-28 px-6 border-t border-border">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="flex items-center gap-4 mb-16">
+          <span class="font-mono text-brand text-sm">02</span>
+          <div class="flex-1 h-px bg-border"></div>
+          <h2 class="font-mono text-2xl font-bold text-text-primary">skills</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {% for category, skills in skills_by_category.items %}
+          <div class="reveal">
+            <h3 class="font-mono text-brand text-xs uppercase tracking-widest mb-6">{{ category }}</h3>
+            <div class="space-y-4">
+              {% for skill in skills %}
+              <div>
+                <div class="flex justify-between font-mono text-sm mb-2">
+                  <span class="text-text-primary">{{ skill.name }}</span>
+                  <span class="text-text-muted">{{ skill.proficiency }}%</span>
+                </div>
+                <div class="h-px bg-border relative overflow-hidden">
+                  <div class="skill-bar h-full bg-brand transition-all duration-1000 ease-out"
+                       data-width="{{ skill.proficiency }}"
+                       style="width: 0%;"></div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% empty %}
+          <p class="font-mono text-text-muted col-span-2">
+            No skills yet — add them via the <a href="/admin" class="text-brand hover:underline">admin panel</a>.
+          </p>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ────────────────────────────────────────── -->
+    <section id="projects" class="py-28 px-6 border-t border-border">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="flex items-center gap-4 mb-16">
+          <span class="font-mono text-brand text-sm">03</span>
+          <div class="flex-1 h-px bg-border"></div>
+          <h2 class="font-mono text-2xl font-bold text-text-primary">projects</h2>
+        </div>
+
+        <!-- Featured projects grid -->
+        {% if featured_projects %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {% for project in featured_projects %}
+          <article class="project-card reveal border border-border bg-surface hover:border-brand/50 transition-all duration-300 group flex flex-col">
+
+            <!-- Image -->
+            {% if project.image %}
+            <div class="w-full h-44 overflow-hidden border-b border-border">
+              <img src="{{ project.image.url }}" alt="{{ project.title }}"
+                   class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            </div>
+            {% endif %}
+
+            <div class="p-6 flex flex-col flex-1">
+            <!-- Index -->
+            <div class="font-mono text-text-muted text-xs mb-4">
+              {{ forloop.counter|stringformat:"02d" }}
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-mono text-text-primary font-bold text-lg mb-3 group-hover:text-brand transition-colors duration-200">
+              {{ project.title }}
+            </h3>
+
+            <!-- Description -->
+            <p class="text-text-secondary text-sm leading-relaxed mb-6 flex-1">
+              {{ project.description }}
+            </p>
+
+            <!-- Tech tags -->
+            <div class="flex flex-wrap gap-2 mb-6">
+              {% for tech in project.get_tech_list %}
+              <span class="font-mono text-xs border border-border text-text-muted px-2 py-0.5 group-hover:border-brand/30 transition-colors duration-200">
+                {{ tech }}
+              </span>
+              {% endfor %}
+            </div>
+
+            <!-- Links -->
+            <div class="flex gap-4 font-mono text-xs">
+              {% if project.github_url %}
+              <a href="{{ project.github_url }}" target="_blank" rel="noopener"
+                 class="text-text-secondary hover:text-brand transition-colors duration-200">
+                GitHub ↗
+              </a>
+              {% endif %}
+              {% if project.live_url %}
+              <a href="{{ project.live_url }}" target="_blank" rel="noopener"
+                 class="text-brand hover:text-brand-dim transition-colors duration-200">
+                Live demo ↗
+              </a>
+              {% endif %}
+            </div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- All other projects (simple list) -->
+        {% with other_projects=all_projects %}
+        {% if other_projects|length > 3 %}
+        <div class="border-t border-border pt-12">
+          <h3 class="font-mono text-text-muted text-xs uppercase tracking-widest mb-8">other projects</h3>
+          <div class="space-y-4">
+            {% for project in other_projects %}
+            {% if not project.featured %}
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between py-4 border-b border-border/50 hover:border-brand/30 transition-colors duration-200 group">
+              <div>
+                <span class="font-mono text-text-primary group-hover:text-brand transition-colors duration-200">{{ project.title }}</span>
+                <span class="font-mono text-text-muted text-xs ml-4">{{ project.tech_stack }}</span>
+              </div>
+              <div class="flex gap-4 mt-2 sm:mt-0 font-mono text-xs">
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank" rel="noopener" class="text-text-secondary hover:text-brand transition-colors">GitHub ↗</a>
+                {% endif %}
+                {% if project.live_url %}
+                <a href="{{ project.live_url }}" target="_blank" rel="noopener" class="text-brand hover:text-brand-dim transition-colors">Live ↗</a>
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% if not all_projects %}
+        <div class="font-mono text-text-muted text-center py-20 border border-dashed border-border">
+          <p class="mb-2">No projects yet.</p>
+          <a href="/admin/core/project/add/" class="text-brand hover:underline text-sm">Add your first project →</a>
+        </div>
+        {% endif %}
+
+      </div>
+    </section>
+
+    <!-- ── CONTACT ─────────────────────────────────────────── -->
+    <section id="contact" class="py-28 px-6 border-t border-border">
+      <div class="max-w-6xl mx-auto">
+
+        <div class="flex items-center gap-4 mb-16">
+          <span class="font-mono text-brand text-sm">04</span>
+          <div class="flex-1 h-px bg-border"></div>
+          <h2 class="font-mono text-2xl font-bold text-text-primary">contact</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+          <!-- Left: copy -->
+          <div class="reveal">
+            <p class="font-mono text-text-secondary text-xl leading-relaxed mb-8">
+              Got a project in mind, a job opportunity, or just want to chat about code?
+              <span class="text-text-primary"> I'd love to hear from you.</span>
+            </p>
+            <div class="space-y-4 font-mono text-sm">
+              <div class="flex items-center gap-3 text-text-secondary">
+                <span class="text-brand">→</span>
+                <a href="mailto:tishapatiencemalongo@gmail.com" class="hover:text-brand transition-colors">tishapatiencemalongo@gmail.com</a>
+              </div>
+              <div class="flex items-center gap-3 text-text-secondary">
+                <span class="text-brand">→</span>
+                <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener" class="hover:text-brand transition-colors">github.com/Tisha-patience</a>
+              </div>
+              <div class="flex items-center gap-3 text-text-secondary">
+                <span class="text-brand">→</span>
+                <a href="https://www.linkedin.com/in/tisha-patience-malongo/" target="_blank" rel="noopener" class="hover:text-brand transition-colors">linkedin.com/in/tisha-patience-malongo/</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <div class="reveal">
+
+            <!-- Django messages -->
+            {% for message in messages %}
+            <div class="font-mono text-sm mb-6 px-4 py-3 border
+              {% if message.tags == 'success' %}border-brand/40 text-brand bg-brand/5{% else %}border-red-500/40 text-red-400 bg-red-500/5{% endif %}">
+              {{ message }}
+            </div>
+            {% endfor %}
+
+            <form method="POST" action="#contact" class="space-y-5">
+              {% csrf_token %}
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  {{ contact_form.name }}
+                  {% if contact_form.name.errors %}
+                    <p class="font-mono text-red-400 text-xs mt-1">{{ contact_form.name.errors.0 }}</p>
+                  {% endif %}
+                </div>
+                <div>
+                  {{ contact_form.email }}
+                  {% if contact_form.email.errors %}
+                    <p class="font-mono text-red-400 text-xs mt-1">{{ contact_form.email.errors.0 }}</p>
+                  {% endif %}
+                </div>
+              </div>
+              <div>
+                {{ contact_form.subject }}
+                {% if contact_form.subject.errors %}
+                  <p class="font-mono text-red-400 text-xs mt-1">{{ contact_form.subject.errors.0 }}</p>
+                {% endif %}
+              </div>
+              <div>
+                {{ contact_form.message }}
+                {% if contact_form.message.errors %}
+                  <p class="font-mono text-red-400 text-xs mt-1">{{ contact_form.message.errors.0 }}</p>
+                {% endif %}
+              </div>
+              <button type="submit"
+                class="font-mono text-sm bg-brand text-ink px-8 py-3 font-bold w-full hover:bg-brand-dim transition-colors duration-200 mt-2">
+                Send message →
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────── -->
+  <footer class="border-t border-border py-8 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-text-muted">
+      <span>Built with Python · Django · Tailwind CSS</span>
+      <span>© 2026 Tisha Patience Malongo</span>
+    </div>
+  </footer>
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
