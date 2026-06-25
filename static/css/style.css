@@ -1,4 +1,57 @@
-/* ── Form inputs ── */
+/* ── Theme transition ── */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+}
+
+/* ── Light mode overrides ── */
+html.light body {
+  background-color: #F5F3EF !important;
+  color: #1A1A1A !important;
+}
+
+html.light nav {
+  background-color: rgba(245, 243, 239, 0.92) !important;
+  border-bottom-color: #D5D0C8 !important;
+}
+
+html.light .bg-ink { background-color: #F5F3EF !important; }
+html.light .bg-surface { background-color: #ECEAE5 !important; }
+html.light .border-border { border-color: #D5D0C8 !important; }
+html.light .text-text-primary { color: #1A1A1A !important; }
+html.light .text-text-secondary { color: #555047 !important; }
+html.light .text-text-muted { color: #999490 !important; }
+html.light .bg-border { background-color: #D5D0C8 !important; }
+
+/* Light mode form inputs */
+html.light .form-input {
+  background: #ECEAE5;
+  border-color: #D5D0C8;
+  color: #1A1A1A;
+}
+html.light .form-input::placeholder { color: #999490; }
+html.light .form-input:focus { border-color: #FF5C00; }
+
+/* Light mode project cards */
+html.light .project-card {
+  background-color: #ECEAE5 !important;
+  border-color: #D5D0C8 !important;
+}
+html.light .project-card:hover {
+  border-color: rgba(255, 92, 0, 0.5) !important;
+}
+
+/* Light mode skill bar track */
+html.light .bg-border.relative { background-color: #D5D0C8 !important; }
+
+/* Light mode scrollbar */
+html.light ::-webkit-scrollbar-track { background: #F5F3EF; }
+html.light ::-webkit-scrollbar-thumb { background: #D5D0C8; }
+
+/* Light mode section borders */
+html.light .border-t { border-color: #D5D0C8 !important; }
+html.light footer { border-color: #D5D0C8 !important; }
+
+/* ── Form inputs (dark default) ── */
 .form-input {
   display: block;
   width: 100%;
@@ -12,18 +65,9 @@
   transition: border-color 0.2s ease;
 }
 
-.form-input::placeholder {
-  color: #555250;
-}
-
-.form-input:focus {
-  border-color: #FF5C00;
-}
-
-.form-textarea {
-  resize: vertical;
-  min-height: 130px;
-}
+.form-input::placeholder { color: #555250; }
+.form-input:focus { border-color: #FF5C00; }
+.form-textarea { resize: vertical; min-height: 130px; }
 
 /* ── Scroll reveal ── */
 .reveal {
@@ -31,46 +75,28 @@
   transform: translateY(20px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ── Project card hover ── */
-.project-card {
-  position: relative;
-}
-
+.project-card { position: relative; }
 .project-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 0;
+  top: 0; left: 0;
+  width: 2px; height: 0;
   background: #FF5C00;
   transition: height 0.3s ease;
 }
-
-.project-card:hover::before {
-  height: 100%;
-}
+.project-card:hover::before { height: 100%; }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0A0A0A;
-}
-::-webkit-scrollbar-thumb {
-  background: #2A2A2A;
-  border-radius: 0;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #FF5C00;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #FF5C00; }
 
 /* ── Selection ── */
 ::selection {

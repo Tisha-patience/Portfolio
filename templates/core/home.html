@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -55,6 +55,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+  <!-- Apply saved theme immediately to avoid flash -->
+  <script>
+    if (localStorage.getItem('theme') === 'light') {
+      document.getElementById('html-root').classList.add('light');
+    }
+  </script>
 </head>
 
 <body class="bg-ink text-text-primary font-sans antialiased">
@@ -69,10 +76,18 @@
         <a href="#projects" class="hover:text-brand transition-colors duration-200">projects</a>
         <a href="#contact" class="hover:text-brand transition-colors duration-200">contact</a>
       </div>
-      <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener"
-         class="font-mono text-xs border border-brand text-brand px-4 py-1.5 hover:bg-brand hover:text-ink transition-all duration-200">
-        GitHub ↗
-      </a>
+      <div class="flex items-center gap-3">
+        <!-- Theme toggle -->
+        <button id="theme-toggle" onclick="toggleTheme()"
+          class="w-9 h-9 flex items-center justify-center border border-border hover:border-brand transition-colors duration-200"
+          title="Toggle light/dark mode">
+          <span id="theme-icon">☀️</span>
+        </button>
+        <a href="https://github.com/Tisha-patience" target="_blank" rel="noopener"
+           class="font-mono text-xs border border-brand text-brand px-4 py-1.5 hover:bg-brand hover:text-ink transition-all duration-200">
+          GitHub ↗
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -383,7 +398,25 @@
     </div>
   </footer>
 
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    function toggleTheme() {
+      const html = document.getElementById('html-root');
+      const icon = document.getElementById('theme-icon');
+      if (html.classList.contains('light')) {
+        html.classList.remove('light');
+        localStorage.setItem('theme', 'dark');
+        icon.textContent = '☀️';
+      } else {
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        icon.textContent = '🌙';
+      }
+    }
+    // Set correct icon on load
+    if (localStorage.getItem('theme') === 'light') {
+      document.getElementById('theme-icon').textContent = '🌙';
+    }
+  </script>
 </body>
 </html>
