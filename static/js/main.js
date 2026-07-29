@@ -1,3 +1,24 @@
+/* ── Theme toggle ── */
+(function () {
+  const html = document.documentElement;
+  const toggle = document.getElementById('theme-toggle');
+  if (!toggle) return;
+
+  function setTheme(isLight) {
+    html.classList.toggle('light', isLight);
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    toggle.setAttribute('aria-pressed', String(isLight));
+    toggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+  }
+
+  setTheme(localStorage.getItem('theme') === 'light');
+
+  toggle.addEventListener('click', () => {
+    setTheme(!html.classList.contains('light'));
+  });
+})();
+
+
 /* ── Typed hero text ── */
 (function () {
   const phrases = [
