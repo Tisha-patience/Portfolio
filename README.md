@@ -1,95 +1,139 @@
-# Tisha Patience Malongo — Portfolio
+# Tisha Patience Malongo — Developer Portfolio
 
-A bold, dark-themed developer portfolio built with **Python**, **Django**, **Tailwind CSS**, **HTML**, and **CSS**.
+A modern, dark-themed developer portfolio built with **Python**, **Django**, **Tailwind CSS**, **HTML**, and **CSS**. Features a light/dark mode toggle, animated hero section, skill tags, project showcase with image uploads, and a working contact form — all managed via Django admin.
+
+---
 
 ## Features
 
+- Light / dark mode toggle (preference saved in browser)
 - Typing hero animation
 - Scroll-reveal animations
-- Animated skill bars
-- Dynamic project cards (managed via Django admin)
-- Contact form (saves to DB + optional email)
+- Skill tags by category (no progress bars — clean and honest)
+- Dynamic project cards with image support (managed via Django admin)
+- Contact form that saves messages to the database and sends email
 - Django admin panel to manage all content
+- Secrets managed with `python-decouple` (no passwords in code)
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Backend | Python, Django |
+| Frontend | HTML5, Tailwind CSS (CDN), Vanilla JS |
+| Database | SQLite (dev) |
+| Styling | Inter font, CSS custom properties |
+| Package manager | uv |
+| Deployment | PythonAnywhere |
 
 ---
 
 ## Quick Start
 
-### 1. Clone / download the project
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/Tisha-patience/portfolio.git
 cd portfolio
 ```
 
-### 2. Create a virtual environment
+### 2. Install uv (if you don't have it)
 
 ```bash
-python -m venv venv
-source venv/bin/activate          # macOS / Linux
-venv\Scripts\activate             # Windows
+pip install uv
 ```
 
-### 3. Install dependencies
+### 3. Create and activate the virtual environment
 
 ```bash
-pip install -r requirements.txt
+uv venv
+source .venv/Scripts/activate   # Windows (Git Bash)
+source .venv/bin/activate        # macOS / Linux
 ```
 
-### 4. Run migrations
+### 4. Install dependencies
 
 ```bash
-python manage.py migrate
+uv sync
 ```
 
-### 5. Load sample data (optional)
+### 5. Set up environment variables
+
+Create a `.env` file in the project root:
+
+```
+SECRET_KEY=your-django-secret-key
+DEBUG=True
+EMAIL_HOST_USER=your@gmail.com
+EMAIL_HOST_PASSWORD=your-gmail-app-password
+```
+
+> Never commit `.env` to GitHub — it is already in `.gitignore`.
+
+### 6. Run migrations
 
 ```bash
-python manage.py shell < seed_data.py
+uv run manage.py migrate
 ```
 
-### 6. Create an admin user
+### 7. Create an admin user
 
 ```bash
-python manage.py createsuperuser
+uv run manage.py createsuperuser
 ```
 
-### 7. Run the development server
+### 8. Run the development server
 
 ```bash
-python manage.py runserver
+uv run manage.py runserver
 ```
 
-Visit **http://127.0.0.1:8000** to see your portfolio.
-Visit **http://127.0.0.1:8000/admin** to manage projects, skills, and messages.
+Visit **http://127.0.0.1:8000** to see the portfolio.
+Visit **http://127.0.0.1:8000/admin** to manage content.
 
 ---
 
-## Customisation
+## Managing Content
 
-### Change your name & bio
-Edit `templates/core/home.html` — search for "Alex Dev" and update to your name, email, GitHub/LinkedIn URLs, and bio paragraph.
-
-### Add projects
+### Projects
 Go to `/admin` → Projects → Add Project.
-- Set **Featured = True** for the top 3 (shown as cards)
+- Set **Featured = True** for the top 3 (shown as cards with images)
 - Other projects appear as a compact list below
+- Upload a project image directly from the admin panel
 
-### Add skills
+### Skills
 Go to `/admin` → Skills → Add Skill.
 Categories: `languages`, `frameworks`, `tools`, `databases`
 
-### Change accent colour
-Open `templates/core/home.html`, find `tailwind.config` and change `'brand': '#FF5C00'` to any hex you like.
+### Contact messages
+Go to `/admin` → Contact Messages to read and manage messages sent through the contact form.
 
-### Add a real CV
-Drop your CV as `static/cv.pdf` — the "Download CV" button links to it automatically.
+---
 
-### Enable email sending
-In `config/settings.py`, replace:
-```python
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+## Email Setup
+
+To receive real emails from the contact form, add your Gmail SMTP credentials to `.env`:
+
 ```
-with your SMTP settings (e.g. Gmail, SendGrid). Also update `your@email.com` in `core/views.py`.
+EMAIL_HOST_USER=your@gmail.com
+EMAIL_HOST_PASSWORD=your-16-character-app-password
+```
+
+Generate a Gmail App Password at: Google Account → Security → App Passwords.
+
+---
+
+## Deploying to PythonAnywhere
+
+Before deploying, export a `requirements.txt` from uv:
+
+```bash
+uv export --no-hashes > requirements.txt
+```
+
+Then follow the standard PythonAnywhere Django deployment guide.
 
 ---
 
@@ -98,33 +142,26 @@ with your SMTP settings (e.g. Gmail, SendGrid). Also update `your@email.com` in 
 ```
 portfolio/
 ├── config/
-│   ├── settings.py
+│   ├── settings.py       # Project settings (reads from .env)
 │   ├── urls.py
 │   └── wsgi.py
 ├── core/
-│   ├── models.py        # Project, Skill, ContactMessage
-│   ├── views.py         # Single home view
-│   ├── forms.py         # ContactForm
-│   ├── admin.py         # Admin config
+│   ├── models.py         # Project, Skill, ContactMessage
+│   ├── views.py          # Single home view
+│   ├── forms.py          # ContactForm
+│   ├── admin.py          # Admin configuration
 │   └── urls.py
 ├── templates/
 │   └── core/
-│       └── home.html    # Main template
+│       └── home.html     # Main template
 ├── static/
-│   ├── css/style.css    # Custom styles
-│   └── js/main.js       # Animations & interactions
-├── seed_data.py          # Sample data loader
+│   ├── css/style.css     # Custom styles + light mode
+│   ├── js/main.js        # Animations & interactions
+│   └── images/           # Profile photo
+├── media/                # Uploaded project images
+├── .env                  # Secrets (never commit this)
+├── .gitignore
+├── pyproject.toml        # uv dependencies
 ├── manage.py
-└── requirements.txt
+└── seed_data.py          # Optional sample data loader
 ```
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Backend | Python 3.10+, Django 4.2 |
-| Frontend | HTML5, Tailwind CSS (CDN), Vanilla JS |
-| Database | SQLite (dev) / PostgreSQL (production) |
-| Styling | CSS custom properties, JetBrains Mono font |
