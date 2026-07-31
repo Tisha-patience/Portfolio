@@ -36,7 +36,7 @@ def home(request):
                     subject=f"Portfolio contact: {contact_form.cleaned_data['subject']}",
                     message=f"From: {contact_form.cleaned_data['name']} <{contact_form.cleaned_data['email']}>\n\n{contact_form.cleaned_data['message']}",
                     from_email=contact_form.cleaned_data['email'],
-                    recipient_list=['your@email.com'],
+                    recipient_list=['tishapatiencemalongo@gmail.com'],
                     fail_silently=True,
                 )
             except Exception:
