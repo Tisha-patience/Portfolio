@@ -1,0 +1,70 @@
+name: Deploy to www.tisha.pro
+
+# Every published GitHub release is deployed to the production server.
+# Releases must be published in this repository (startwind/Portfolio).
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Tag (or branch) to deploy
+        required: true
+
+# Never let two deploys touch the server at the same time.
+concurrency:
+  group: deploy-www-tisha-pro
+  cancel-in-progress: false
+
+env:
+  DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+  DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+  STAGING_DIR: /var/www/www.tisha.pro/staging
+  DEPLOY_SCRIPT: /var/www/www.tisha.pro/deploy.sh
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the released code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.ref }}
+
+      - name: Derive release version
+        id: version
+        run: |
+          RAW="${{ github.event.release.tag_name || inputs.ref }}"
+          # The server's forced command only accepts [A-Za-z0-9._-] as a version.
+          VERSION=$(printf '%s' "$RAW" | tr -c 'A-Za-z0-9._-' '-')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Deploying version: $VERSION"
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf '%s\n' "${{ vars.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Upload code to the staging directory
+        run: |
+          rsync -az --delete \
+            --exclude='.git' --exclude='.github' --exclude='.venv' --exclude='venv' \
+            --exclude='__pycache__' --exclude='db.sqlite3' --exclude='.env' \
+            --exclude='staticfiles' \
+            -e "ssh -i ~/.ssh/id_deploy -o IdentitiesOnly=yes" \
+            ./ "$DEPLOY_USER@$DEPLOY_HOST:$STAGING_DIR/"
+
+      - name: Build and activate the release
+        run: |
+          ssh -i ~/.ssh/id_deploy -o IdentitiesOnly=yes \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            "$DEPLOY_SCRIPT ${{ steps.version.outputs.version }}"
+
+      - name: Verify the live site
+        run: |
+          CODE=$(curl -sS -o /dev/null -w '%{http_code}' \
+            --retry 3 --retry-delay 5 --max-time 20 https://www.tisha.pro/)
+          echo "https://www.tisha.pro/ -> $CODE"
+          test "$CODE" = "200"
