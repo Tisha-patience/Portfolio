@@ -20,16 +20,30 @@ jobs:
       - name: Generate version tag
         id: tag
         run: |
-          # Use date + short commit SHA as version e.g. v2026.08.27-a1b2c3d
-          VERSION="v$(date +'%Y.%m.%d')-$(git rev-parse --short HEAD)"
+          LATEST=""
+          while IFS= read -r TAG; do
+            if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              LATEST="$TAG"
+              break
+            fi
+          done < <(git for-each-ref --sort=-version:refname --format='%(refname:strip=2)' refs/tags)
+          if [ -z "$LATEST" ]; then
+            VERSION="v0.1.0"
+            TITLE="v0.1.0 — First production release"
+          else
+            IFS=. read -r MAJOR MINOR PATCH <<< "${LATEST#v}"
+            VERSION="v$MAJOR.$MINOR.$((PATCH + 1))"
+            TITLE="$VERSION"
+          fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
           echo "Tagging as $VERSION"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.version }}
-          name: ${{ steps.tag.outputs.version }}
+          name: ${{ steps.tag.outputs.title }}
           body: |
             Automated release from push to main.
             Commit: ${{ github.sha }}
